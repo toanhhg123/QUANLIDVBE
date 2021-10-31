@@ -1,0 +1,70 @@
+<header>
+  <div class="container">
+    <div class="menu-bar">
+      <i class="fas fa-bars bars-icons"></i>
+    </div>
+    <nav class="nav-pc">
+      <div class="nav-list">
+        <ul class="nav-list-items">
+          <li class="nav-list-item"><a href="/" class="nav-list-item-link">
+              <i class="fas fa-home"></i>
+              HOME</a></li>
+          <li class="nav-list-item"><a href="/data" class="nav-list-item-link">
+              <i class="fas fa-users"></i>
+              teachers</a></li>
+          <li class="nav-list-item">
+            <form method="post" action="/data/search" style="margin-left: 20px">
+              <input type="text" class="header-input-search" id="teachers-input-search" placeholder='name' name="name"
+                required>
+              <button class="btn-header-search"> <i class="fas fa-search"></i></button>
+            </form>
+          </li>
+          <li class="nav-list-item nav-list-item-logo" style="display: block;"><a href="/" class="">
+              <img src="https://sinhvien.hufi.edu.vn/Content/AConfig/images/sv_logo_dashboard.png" alt="">
+            </a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='overplay'></div>
+    <nav class="nav-mobile">
+      <div class="nav-mobile-close">
+        <i class="far fa-times-circle nav-icon-close"></i>
+      </div>
+      <div class="nav-mobile-list">
+        <ul class="nav-mobile-list-items">
+          <li class="nav-mobile-list-item">
+            <form method="post" action="/data/search" style=" margin-left: 15px;" >
+              <input type="text" class="header-input-search" id="teachers-input-search" placeholder='name' name="name"
+                required>
+              <button class="btn-header-search"> <i class="fas fa-search"></i></button>
+            </form>
+          </li>
+          <li class="nav-mobile-list-item"><a href="/" class="nav-mobile-list-item-link">HOME</a></li>
+          <li class="nav-mobile-list-item"><a href="/data" class="nav-mobile-list-item-link">teachers</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+<script>
+  const iconMenu = document.querySelector(".bars-icons");
+  const overplay = document.querySelector(".overplay");
+  const navMobile = document.querySelector(".nav-mobile");
+  const iconCloseBar = document.querySelector(".nav-icon-close")
+  iconMenu.onclick = () => {
+    overplay.style.display = "block";
+    navMobile.style.transform = "translateX(0%)"
+  }
+  overplay.onclick = () => {
+    navMobile.style.transform = "translateX(-100%)"
+    overplay.style.display = "none";
+  }
+  iconCloseBar.onclick = () => {
+    navMobile.style.transform = "translateX(-100%)"
+    overplay.style.display = "none";
+  }
+
+
+</script>

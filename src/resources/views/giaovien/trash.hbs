@@ -1,0 +1,98 @@
+<div class="teachers">
+  <form method="post" action="/data/search">
+    <input type="text" class="teachers-input-search" id="teachers-input-search" placeholder='name' name="name" required>
+    <button class="btn-primary-me">search</button>
+  </form>
+  <form class="action" method="post" action="/data/deleteall?_method=DELETE">
+    <div style="margin: 10px 10px;">
+      <select name="action" id="" required class="select-all">
+        <option value="">chọn</option>
+        <option value="restore">Khôi phục</option>
+      </select>
+      <input type="checkbox" class="checkAll" id="checkAll">
+      <label for="checkAll">Chọn tất cả</label>
+      <button class="btn-primary-me btn-action" disabled>action</button>
+    </div>
+    <div class="table-teachers">
+      <table class="sticky-table">
+        <thead>
+          <tr>
+            <th>  chọn</th>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gioi Tinh</th>
+            <th scope="col">Ma BM</th>
+            <th>Khôi phục</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each Teachers}}
+          <tr>
+            <td ><input type="checkbox" class="check" name="MAGV[]" value="{{this.MAGV}}">
+            </td>
+            <td scope="row">{{sum @index}}</td>
+            <td>{{this.HOTEN}}</td>
+            <td>{{this.PHAI}}</td>
+            <td>{{this.MABM}}</td>
+            <td><i class="fas fa-undo icon-restore" data-id="{{this.MAGV}}"></i></td>
+          </tr>
+          {{else}}
+          <th colspan="5">
+            <h1 style="text-align:center">danh sách rỗng</h1>
+          </th>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+</div>
+</form>
+
+<form method="post" class="form-restore"></form>
+<script>
+  const iconRestores = document.querySelectorAll('.icon-restore');
+  const formRestore = document.querySelector('.form-restore');
+  const checks = document.querySelectorAll('.check');
+  const btnAction = document.querySelector('.btn-action');
+  const formAction = document.querySelector('.action');
+  const checkAll = document.querySelector('.checkAll');
+  const selectAll = document.querySelector('select[name="action"]');
+
+  checkAll.onchange = () => {
+    if (checkAll.checked) {
+      checks.forEach(check => {
+        check.checked = true
+      })
+    }
+    else
+      checks.forEach(check => {
+        check.checked = false
+      })
+    AddCheck();
+  }
+  checks.forEach(check => {
+    check.onchange = () => {
+      AddCheck();
+
+    }
+  })
+
+  function AddCheck() {
+    const n = document.querySelectorAll('input[name="MAGV[]"]:checked').length;
+    if (n > 0)
+      btnAction.removeAttribute('disabled');
+    else
+      btnAction.setAttribute('disabled', 'disabled');
+    if (n === checks.length)
+      checkAll.checked = true;
+    else
+      checkAll.checked = false;
+  }
+  // delete 1 Teacher
+  iconRestores.forEach((icon) => {
+    icon.onclick = () => {
+      formRestore.action = `/data/trash/${icon.getAttribute('data-id')}?_method=PUT`;
+      formRestore.submit();
+    }
+  })
+
+</script>
